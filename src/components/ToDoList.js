@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { TextField, RaisedButton, MenuItem } from 'material-ui';
-import { add, del, newText, toggle } from '../state/todolist'
+import { add, addTask, del, newText, toggle } from '../state/todolist'
 
 
 
@@ -11,10 +11,15 @@ const ToDoList = (props) => {
             <TextField
                 onChange={props.taskText}
                 value={props.text}
+                fullWidth={true}
             />
             <RaisedButton
                 label='addTask'
-                onClick={props.addTask} />
+                onClick={props.addTask}
+                secondary={true}
+                fullWidth={true}
+                disabled={props.text ? false:true}
+                />
 
            {props.tasks.map((el, i, arr) => 
             (<MenuItem primaryText={el.text} onClick={() => {props.delTask(i)}}/> ))}
@@ -44,9 +49,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         delTask: (index) => dispatch(del(index)),
-        addTask: () => dispatch(add()),
+        addTask: () => dispatch(addTask()),
         taskText: (ev, val) => dispatch(newText(val)),
-        toggleTask: (index) => dispatch(toggle(index))
+        // toggleTask: (index) => dispatch(toggle(index))
     };
 }
 

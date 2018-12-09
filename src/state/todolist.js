@@ -11,13 +11,13 @@ const initialState = {
 
 
 
-export const add = () => ({
+export const addTask = () => ({
     type: ADD,
 })
 export const newText = (text) => ({
     type: NEW_TEXT,
     text,
-    
+
 })
 export const del = (index) => ({
     type: DEL,
@@ -26,7 +26,7 @@ export const del = (index) => ({
 export const toggle = (index) => ({
     type: TOGGLE,
     index,
-    
+
 })
 
 
@@ -46,7 +46,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 text: action.text,
-                
+
             }
         case TOGGLE:
             return {
