@@ -1,3 +1,10 @@
+To-do-list app 
+
+Simple app using React, Redux and saving results in Firebase database.
+To start you must log in through the Google account.
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
