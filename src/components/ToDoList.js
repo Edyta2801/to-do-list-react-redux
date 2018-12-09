@@ -53,7 +53,7 @@ function mapDispatchToProps(dispatch) {
         addTask: () => dispatch(addTask()),
         taskText: (ev, val) => dispatch(newText(val)),
         // toggleTask: (index) => dispatch(toggle(index))
-        // updateAfterRemove:()=>dispatch(updateAfterRemove())
+
     };
 }
 

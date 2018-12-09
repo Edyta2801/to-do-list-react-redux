@@ -10,6 +10,7 @@ const AppBar = (props) => {
         <div>
             <MuiAppBar
                 onLeftIconButtonClick={props.open}
+                iconStyleLeft={{display: 'none'}}
                 iconElementRight={<IconButton><NavigationClose/></IconButton>}
                 onRightIconButtonClick={props.logOut}
 
