@@ -1,5 +1,5 @@
-import { database } from '../firebaseConfig'
-
+import { database } from '../firebase'
+import auth from './auth'
 
 const INIT = 'todolist/INIT'
 const ADD = 'todolist/ADD'
@@ -38,18 +38,18 @@ const mapObjectToArray = (obj) => (
 
 export const initSync = () => (dispatch, getState) => {
     const state = getState()
-    state.auth.isUserLoggedIn===true ? database.ref(`users/${state.auth.user.uid}/tasks`).on(
+    state.auth.isUserLoggedIn === true ? database.ref(`users/${state.auth.user.uid}/tasks`).on(
         'value',
         (snapshot) => dispatch(
             init(
                 mapObjectToArray(snapshot.val())
             )
         )
-    ) : alert('nie jesteś zalogowany!')
+    ) : false
 }
 export const updateAfterRemove = () => (dispatch, getState) => {
     const state = getState()
-  database.ref(`users/${state.auth.user.uid}/tasks`).set(
+    database.ref(`users/${state.auth.user.uid}/tasks`).set(
         state.todolist.tasks
     )
 }
