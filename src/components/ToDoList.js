@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { TextField, RaisedButton, MenuItem } from 'material-ui';
-import { add, addTask, del, newText, toggle } from '../state/todolist'
+import todolist, {add, addTask, initSync, updateAfterRemove, del, newText} from '../state/todolist'
 
 
 
@@ -48,17 +48,14 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        delTask: (index) => dispatch(del(index)),
+        delTask: (index) => {dispatch(del(index))
+            dispatch(updateAfterRemove())},
         addTask: () => dispatch(addTask()),
         taskText: (ev, val) => dispatch(newText(val)),
         // toggleTask: (index) => dispatch(toggle(index))
+        // updateAfterRemove:()=>dispatch(updateAfterRemove())
     };
 }
-
-
-
-
-
 
 
 export default connect(

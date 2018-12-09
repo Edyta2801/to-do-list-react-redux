@@ -1,6 +1,6 @@
-import {createStore, combineReducers, compose, applyMiddleware} from 'redux'
-import thunk from 'redux-thunk'
-import todolist from './state/todolist'
+import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
+import todolist, {initSync} from './state/todolist'
  
  
  const reducer = combineReducers({
@@ -14,3 +14,5 @@ import todolist from './state/todolist'
         applyMiddleware(thunk)
      )
 )
+
+store.dispatch(initSync())

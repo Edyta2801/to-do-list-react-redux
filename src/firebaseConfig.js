@@ -8,6 +8,8 @@ const config = {
     storageBucket: "todo-list-a6e8e.appspot.com",
     messagingSenderId: "16464590013"
   };
-  firebase.initializeApp(config);
+  firebase.initializeApp(config)
 
-export const database =firebase.database()
+// export const auth = firebase.auth()
+export const database = firebase.database()
+export const googleProvider = new firebase.auth.GoogleAuthProvider()

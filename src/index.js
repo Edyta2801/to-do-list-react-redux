@@ -6,6 +6,9 @@ import MultiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import   {store}   from './store'
 import {Provider} from 'react-redux'
 
+import firebase from './firebaseConfig'
+
+
 ReactDOM.render(
 <Provider store={store}>
 <MultiThemeProvider><App />
