@@ -1,10 +1,21 @@
-import {database} from '../firebase'
+import { database } from '../firebase'
 import auth from './auth'
+
 
 const INIT = 'todolist/INIT'
 const ADD = 'todolist/ADD'
 const DEL = 'todolist/DEL'
 const NEW_TEXT = 'todolist/NEW_TEXT'
+
+const initialState = {
+    tasks: [{
+        text: '',
+        key: '',
+    }],
+    text: '',
+
+}
+
 
 export const add = () => ({
     type: ADD,
@@ -29,15 +40,16 @@ const mapObjectToArray = (obj) => (
     Object.entries(obj || {})
         .map(([key, value]) => (
             typeof value === 'object' ?
-                {...value, key}
+                { ...value, key }
                 :
-                {key, value}
+                { key, value }
         ))
 )
 
 export const initSync = () => (dispatch, getState) => {
     const state = getState()
-    state.auth.isUserLoggedIn === true ? database.ref(`users/${state.auth.user.uid}/tasks`).on(
+    state.auth.isUserLoggedIn === true ? 
+    database.ref(`users/${state.auth.user.uid}/tasks`).on(
         'value',
         (snapshot) => dispatch(
             init(
@@ -46,6 +58,12 @@ export const initSync = () => (dispatch, getState) => {
         )
     ) : false
 }
+
+
+
+
+
+
 export const updateAfterRemove = () => (dispatch, getState) => {
     const state = getState()
     database.ref(`users/${state.auth.user.uid}/tasks`).set(
@@ -61,14 +79,6 @@ export const addTask = () => (dispatch, getState) => {
 }
 
 
-const initialState = {
-    tasks: [{
-        text: '',
-        key: '',
-    }],
-    text: '',
-
-}
 
 
 export default (state = initialState, action) => {
@@ -77,7 +87,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 text: '',
-                tasks: state.tasks.concat({text: state.text})
+                tasks: state.tasks.concat({ text: state.text })
             }
         case INIT:
             return {
