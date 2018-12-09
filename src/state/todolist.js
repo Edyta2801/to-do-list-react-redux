@@ -1,5 +1,4 @@
 import { database } from '../firebase'
-import auth from './auth'
 
 
 const INIT = 'todolist/INIT'
@@ -7,24 +6,12 @@ const ADD = 'todolist/ADD'
 const DEL = 'todolist/DEL'
 const NEW_TEXT = 'todolist/NEW_TEXT'
 
-const initialState = {
-    tasks: [{
-        text: '',
-        key: '',
-    }],
-    text: '',
-
-}
-
-
 export const add = () => ({
     type: ADD,
-
 })
 export const init = (tasks) => ({
     type: INIT,
     tasks
-
 })
 export const newText = (text) => ({
     type: NEW_TEXT,
@@ -46,22 +33,33 @@ const mapObjectToArray = (obj) => (
         ))
 )
 
+// export const initSync = () => (dispatch, getState) => {
+//     const state = getState()
+//     state.auth.isUserLoggedIn === true ? database.ref(`users/${state.auth.user.uid}/tasks`).on(
+//         'value',
+//         (snapshot) => dispatch(
+//             init(
+//                 mapObjectToArray(snapshot.val())
+//             )
+//         )
+//     ) : false
+// }
 export const initSync = () => (dispatch, getState) => {
     const state = getState()
-    state.auth.isUserLoggedIn === true ? 
-    database.ref(`users/${state.auth.user.uid}/tasks`).on(
-        'value',
-        (snapshot) => dispatch(
-            init(
-                mapObjectToArray(snapshot.val())
-            )
-        )
-    ) : false
+
+    if (state.auth.isUserLoggedIn === true) {
+        database.ref(`users/${state.auth.user.uid}/tasks`).on(
+            'value',
+            (snapshot) => dispatch(
+                init(
+                    mapObjectToArray(snapshot.val())
+                )))
+    }
+    // else{
+    //     alert('nieporawne logowanie')
+    // }
+
 }
-
-
-
-
 
 
 export const updateAfterRemove = () => (dispatch, getState) => {
@@ -71,6 +69,7 @@ export const updateAfterRemove = () => (dispatch, getState) => {
     )
 }
 
+
 export const addTask = () => (dispatch, getState) => {
     const state = getState()
     database.ref(`users/${state.auth.user.uid}/tasks`).push({
@@ -79,6 +78,14 @@ export const addTask = () => (dispatch, getState) => {
 }
 
 
+const initialState = {
+    tasks: [{
+        text: '',
+        key: '',
+    }],
+    text: '',
+
+}
 
 
 export default (state = initialState, action) => {

@@ -1,8 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { TextField, RaisedButton, MenuItem } from 'material-ui';
-import todolist, {add, addTask, initSync, updateAfterRemove, del, newText} from '../state/todolist'
+import {connect} from 'react-redux';
+import {TextField, RaisedButton, MenuItem, } from 'material-ui'
+import Delete from 'material-ui/svg-icons/action/delete'
 
+import  { addTask, updateAfterRemove, del, newText} from '../state/todolist'
 
 
 const ToDoList = (props) => {
@@ -12,25 +13,30 @@ const ToDoList = (props) => {
                 onChange={props.taskText}
                 value={props.text}
                 fullWidth={true}
+                placeholder={'New Task'}
+                name={'new-task'}
+
+
             />
             <RaisedButton
-                label='addTask'
                 onClick={props.addTask}
-                secondary={true}
+                primary={true}
+                label={'Add task'}
                 fullWidth={true}
-                disabled={props.text ? false:true}
-                />
+                disabled={props.text ? false : true}
+            />
 
-           {props.tasks.map((el, i, arr) => 
-            (<MenuItem primaryText={el.text} onClick={() => {props.delTask(i)}}/> ))}
+
+
+            {props.tasks.map((el, i, arr) => (
+            <MenuItem primaryText={el.text} rightIcon={<Delete
+                onClick={() =>props.delTask(i)}
+            />}
+            /> ))
+            }
         </div>
     );
 }
-
-
-
-
-
 
 
 function mapStateToProps(state) {
@@ -40,23 +46,18 @@ function mapStateToProps(state) {
     };
 }
 
-
-
-
-
-
-
 function mapDispatchToProps(dispatch) {
     return {
-        delTask: (index) => {dispatch(del(index))
-            dispatch(updateAfterRemove())},
+        // changeToCompleted: dispatch(changeToCompleted()),
+        delTask: (index) => {
+            dispatch(del(index))
+            dispatch(updateAfterRemove())
+        },
         addTask: () => dispatch(addTask()),
         taskText: (ev, val) => dispatch(newText(val)),
-        // toggleTask: (index) => dispatch(toggle(index))
-
+        updateAfterRemove: () => dispatch(updateAfterRemove())
     };
 }
-
 
 export default connect(
     mapStateToProps,

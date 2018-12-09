@@ -9,6 +9,7 @@ const AppBar = (props) => {
     return (
         <div>
             <MuiAppBar
+                title={'TO DO! '}
                 onLeftIconButtonClick={props.open}
                 iconStyleLeft={{display: 'none'}}
                 iconElementRight={<IconButton><NavigationClose/></IconButton>}

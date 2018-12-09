@@ -1,15 +1,15 @@
-import {createStore, combineReducers, compose, applyMiddleware} from 'redux'
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 
-import todolist, {initSync} from './state/todolist'
-import auth, {initAuthUserSync} from "./state/auth";
+import todolist, { initSync } from './state/todolist'
+import auth, { initAuthUserSync } from "./state/auth";
 
 
 
 const reducer = combineReducers({
+    auth,
+    todolist
 
-    todolist,
-    auth
 })
 
 
@@ -25,3 +25,4 @@ export const store = createStore(
 
 store.dispatch(initSync())
 store.dispatch(initAuthUserSync())
+

@@ -1,8 +1,12 @@
-import {auth, database, googleProvider} from '../firebase';
-import {initSync} from './todolist';
+import {auth, database, googleProvider} from "../firebase";
+import {initSync} from "./todolist";
 
 const LOGGED_IN = 'auth/LOGGED_IN'
 const LOGGED_OUT = 'auth/LOGGED_OUT'
+
+export const loggedIn = (user) => ({type: LOGGED_IN, user})
+export const loggedOut = () => ({type: LOGGED_OUT})
+
 
 const initialState = {
     isUserLoggedIn: false, 
@@ -10,10 +14,8 @@ const initialState = {
 }
 
 
-export const loggedIn = (user) => ({type: LOGGED_IN, user})
-export const loggedOut = () => ({type: LOGGED_OUT})
-
-const logUserLogIn = () => (dispatch, getState) => {
+export const logUserLogIn = () => (dispatch, getState) => {
+    
     const userUid = getState().auth.user.uid
 
     database.ref(`/users/${userUid}/loginsLogs`)
@@ -23,8 +25,7 @@ const logUserLogIn = () => (dispatch, getState) => {
 }
 
 
-export const initAuthUserSync = () => (dispatch, getState) =>
- {
+export const initAuthUserSync = () => (dispatch, getState) => {
     auth.onAuthStateChanged(
         user => {
             if (user) {

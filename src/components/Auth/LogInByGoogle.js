@@ -9,4 +9,4 @@ import RaisedButton from 'material-ui/RaisedButton'
         />
     </div>
 )
- export default LogInByGoogle 
+ export default LogInByGoogle
