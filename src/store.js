@@ -1,18 +1,27 @@
-import {createStore, combineReducers, compose, applyMiddleware} from 'redux';
-import thunk from 'redux-thunk';
+import {createStore, combineReducers, compose, applyMiddleware} from 'redux'
+import thunk from 'redux-thunk'
+
 import todolist, {initSync} from './state/todolist'
- 
- 
- const reducer = combineReducers({
-    todolist
+import auth, {initAuthUserSync} from "./state/auth";
+
+
+
+const reducer = combineReducers({
+
+    todolist,
+    auth
 })
- const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
- 
- export const store = createStore(
+
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+export const store = createStore(
     reducer,
     composeEnhancers(
         applyMiddleware(thunk)
-     )
+
+    )
 )
 
 store.dispatch(initSync())
+store.dispatch(initAuthUserSync())

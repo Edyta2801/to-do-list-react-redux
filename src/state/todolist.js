@@ -1,38 +1,37 @@
-import { database } from '../firebase'
+import {database} from '../firebase'
 import auth from './auth'
 
 const INIT = 'todolist/INIT'
 const ADD = 'todolist/ADD'
 const DEL = 'todolist/DEL'
 const NEW_TEXT = 'todolist/NEW_TEXT'
-// const TOGGLE = 'todolist/TOGGLE'
-
-export const init = (tasks) => ({
-    type: INIT,
-    tasks
-})
 
 export const add = () => ({
     type: ADD,
+
+})
+export const init = (tasks) => ({
+    type: INIT,
+    tasks
+
 })
 export const newText = (text) => ({
     type: NEW_TEXT,
-    text,
-
+    text
 })
+
 export const del = (index) => ({
     type: DEL,
     index
 })
 
-
 const mapObjectToArray = (obj) => (
     Object.entries(obj || {})
         .map(([key, value]) => (
             typeof value === 'object' ?
-                { ...value, key }
+                {...value, key}
                 :
-                { key, value }
+                {key, value}
         ))
 )
 
@@ -54,33 +53,22 @@ export const updateAfterRemove = () => (dispatch, getState) => {
     )
 }
 
-
-// export const delTask = () => (dispatch, getState) => {
-//     const state = getState()
-//     database.ref('todo/').remove({
-//         text: state.todolist.text
-//     })
-// }
-
 export const addTask = () => (dispatch, getState) => {
     const state = getState()
-    database.ref('todo').push({
+    database.ref(`users/${state.auth.user.uid}/tasks`).push({
         text: state.todolist.text
     })
 }
 
+
 const initialState = {
-    tasks: [],
-    text:''
+    tasks: [{
+        text: '',
+        key: '',
+    }],
+    text: '',
+
 }
-
-
-
-// export const toggle = (index) => ({
-//     type: TOGGLE,
-//     index,
-
-// })
 
 
 export default (state = initialState, action) => {
@@ -88,10 +76,12 @@ export default (state = initialState, action) => {
         case ADD:
             return {
                 ...state,
-                tasks: state.tasks.concat({ text: state.text })
+                text: '',
+                tasks: state.tasks.concat({text: state.text})
             }
         case INIT:
             return {
+                text: '',
                 tasks: action.tasks
             }
         case DEL:
@@ -102,18 +92,8 @@ export default (state = initialState, action) => {
         case NEW_TEXT:
             return {
                 ...state,
-                text: action.text,
-
+                text: action.text
             }
-        // case TOGGLE:
-        //     return {
-        //         ...state,
-        //         tasks: state.tasks.map((task, index) => (index === action.index)
-        //             ? { ...task, completed: !task.completed }
-        //             : task)
-        //     }
-
-
         default:
             return state
     }

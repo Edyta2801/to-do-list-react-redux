@@ -8,6 +8,7 @@ import {Provider} from 'react-redux'
 import * as firebase from './firebase'
 import Auth from './components/Auth'
 
+import firabse from 'firebase'
 
 
 

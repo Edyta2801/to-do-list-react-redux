@@ -1,6 +1,6 @@
 
 import firebase from 'firebase'
-const config = {
+var config = {
     apiKey: "AIzaSyAvGPg_0ivhf98-HztJQtAJy3FVaUN_u2w",
     authDomain: "todo-list-a6e8e.firebaseapp.com",
     databaseURL: "https://todo-list-a6e8e.firebaseio.com",
