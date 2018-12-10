@@ -1,9 +1,9 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {TextField, RaisedButton, MenuItem, } from 'material-ui'
+import { connect } from 'react-redux';
+import { TextField, RaisedButton, MenuItem, } from 'material-ui'
 import Delete from 'material-ui/svg-icons/action/delete'
 
-import  { addTask, updateAfterRemove, del, newText} from '../state/todolist'
+import { addTask, updateAfterRemove, del, newText } from '../state/todolist'
 
 
 const ToDoList = (props) => {
@@ -15,8 +15,6 @@ const ToDoList = (props) => {
                 fullWidth={true}
                 placeholder={'New Task'}
                 name={'new-task'}
-
-
             />
             <RaisedButton
                 onClick={props.addTask}
@@ -26,13 +24,17 @@ const ToDoList = (props) => {
                 disabled={props.text ? false : true}
             />
 
-
-
-            {props.tasks.map((el, i, arr) => (
-            <MenuItem primaryText={el.text} rightIcon={<Delete
-                onClick={() =>props.delTask(i)}
-            />}
-            /> ))
+            {
+                props.tasks.map((el, i, arr) => (
+                    <MenuItem
+                        key={el.key}
+                        primaryText={el.text}
+                        rightIcon={
+                            <Delete
+                                onClick={() => props.delTask(i)}
+                            />
+                        }
+                    />))
             }
         </div>
     );
